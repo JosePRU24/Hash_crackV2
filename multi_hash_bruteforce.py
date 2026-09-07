@@ -180,7 +180,7 @@ def validate_word(word, target_hash, hash_type, user):
          return ldap_salted_sha256.verify(word, target_hash)
 
 
-    elif hash_type == "ldap-ssha512"
+    elif hash_type == "ldap-ssha512":
          return ldap_salted_sha512.verify(word, target_hash)
 
 

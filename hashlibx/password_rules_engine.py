@@ -30,7 +30,7 @@ def rules_parameters(
     wait_time
 ):
     if wait_time == "y":
-        time.sleep(0.40)
+        time.sleep(0.20)
         
     if not rules:
         yield word

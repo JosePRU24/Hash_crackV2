@@ -369,6 +369,7 @@ def hash_cracking_worker(args):
                 digits,
                 translation_table,
                 valid_rules,
+                wait_time,
             )
         )
     else:
@@ -519,8 +520,8 @@ def dict_crack(target_hash, hash_type, wait_time, encoder, user, rules, process_
      except (ValueError, TypeError, binascii.Error):
         precomputed = None
 
-
-    with Pool(processes=process_count, initializer=init_worker, initargs=(hash_type, target_hash)) as pool:
+    try:
+     with Pool(processes=process_count, initializer=init_worker, initargs=(hash_type, target_hash)) as pool:
       with open(DICT_PATH, 'r', encoding=encoder, errors='ignore') as keywords_read:
         while True:
             chunk = keywords_read.read(read_block_size)
@@ -589,7 +590,12 @@ def dict_crack(target_hash, hash_type, wait_time, encoder, user, rules, process_
               return
           elif result and isinstance(result, list):
               return
-
+    except KeyboardInterrupt:
+      print()
+      pool.terminate()
+      pool.join()
+      sys.exit(0)
+       
     print("[FINISH]>> PASSWORD NOT FOUND")
 
 

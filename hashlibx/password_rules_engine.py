@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from itertools import product
-
+import time
 
 RULE_SYMBOL_TRANSLATIONS = {'64', '46'}
 RULE_NUMBER_TRANSLATIONS = {'61', '16'}
@@ -26,9 +26,12 @@ def rules_parameters(
     vocals,
     digits,
     translation_table,
-    valid_rules
+    valid_rules,
+    wait_time
 ):
-
+    if wait_time == "y":
+        time.sleep(0.40)
+        
     if not rules:
         yield word
         return
